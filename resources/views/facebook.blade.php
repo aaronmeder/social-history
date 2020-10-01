@@ -26,6 +26,15 @@
             <header>
                 <h1>Likes</h1>
                 Total Likes: {{ count($likes) }}
+
+                <article>
+                    <h2>Top Ten Interactions</h2>
+                    <ul>
+                        @foreach( array_slice($likes_contacts,0,9) as $contact => $like_count )
+                            <li><strong>{{ $contact }}</strong> {{ $like_count }}</li>
+                        @endforeach
+                    </ul>
+                </article>
             </header>
 
         </section>
