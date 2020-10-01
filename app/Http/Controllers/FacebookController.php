@@ -9,11 +9,14 @@ class FacebookController extends Controller
     public function index()
     {
 
+        // get data
         $posts = $this->get_posts();
         $likes = $this->get_likes()['likes'];
         $likes_contacts = $this->get_likes()['contacts'];
+        $comments = $this->get_comments()['comments'];
+        $comments_contacts = $this->get_comments()['contacts'];
 
-        return view( 'facebook', compact('posts', 'likes', 'likes_contacts') );
+        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts') );
     }
 
     private function get_likes() 
@@ -39,7 +42,7 @@ class FacebookController extends Controller
 
         }
 
-        // create basic statistics
+        // optimise data
         $contacts_counts = array_count_values($contacts);
         arsort($contacts_counts);
 
@@ -63,4 +66,36 @@ class FacebookController extends Controller
 
         return $optimised_posts;
     }
+
+    private function get_comments()
+    {
+        $json_file = storage_path('app/social-archives/facebook/comments/comments.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $comments = collect($json_data)['comments'];
+
+        $optimised_comments = [];
+        foreach($comments as $comment) {
+
+            $date = $comment['timestamp'] ? date('d.m.Y', $comment['timestamp']) : null;
+            $title = $comment['title'] ?? null;
+            $optimised_comments[] = compact('date', 'title');
+
+            // extract the contact
+            $contact = str_replace("Aaron Meder commented on ", "", $title);
+            $contact = str_replace("Aaron Meder replied to ", "", $contact);
+            $contact = explode("'", $contact)[0];
+            $contacts[] = $contact;
+
+        }
+
+        // optimise data
+        $contacts_counts = array_count_values($contacts);
+        arsort($contacts_counts);
+
+        return [
+            'comments' => $optimised_comments,
+            'contacts' => $contacts_counts
+        ];
+    }
+
 }
