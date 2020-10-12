@@ -15,8 +15,9 @@ class FacebookController extends Controller
         $likes_contacts = $this->get_likes()['contacts'];
         $comments = $this->get_comments()['comments'];
         $comments_contacts = $this->get_comments()['contacts'];
+        $friends = $this->get_friends();
 
-        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts') );
+        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts', 'friends') );
     }
 
     private function get_likes() 
@@ -96,6 +97,24 @@ class FacebookController extends Controller
             'comments' => $optimised_comments,
             'contacts' => $contacts_counts
         ];
+    }
+
+    private function get_friends()
+    {
+        $json_file = storage_path('app/social-archives/facebook/friends/friends.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $friends = collect($json_data)['friends'];
+
+        $optimised_friends = [];
+        foreach($friends as $friend) {
+            $date = $friend['timestamp'] ? date('d.m.Y', $friend['timestamp']) : null;
+            $name = $friend['name'] ?? null;
+            $optimised_friends[] = compact('date', 'name');
+        }
+
+        krsort($optimised_friends);
+
+        return $optimised_friends;
     }
 
 }

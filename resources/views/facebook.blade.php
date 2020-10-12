@@ -22,6 +22,22 @@
         </section>
 
         <section>
+        
+            <header>
+                <h1>Friends</h1>
+                Total Friends: {{ count($friends) }}
+            </header>
+
+            @foreach( array_slice($friends,0,9) as $friend )
+                <article>
+                    <strong>{{ $friend['name'] }}</strong> 
+                    {{ $friend['date'] }}
+                </article>
+            @endforeach
+
+        </section>
+
+        <section>
 
             <header>
                 <h1>Likes</h1>
