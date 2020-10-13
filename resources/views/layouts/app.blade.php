@@ -14,15 +14,21 @@
     </head>
     <body class="@yield('body-class')">
 
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="{{ route('facebook') }}">Facebook</a></li>
-                </ul>
-            </nav>
-        </header>
+        <div class="site-wrapper">
 
-        @yield('content')
+                <header class="site-header">
+                    <nav>
+                        <ul>
+                            <li><a href="{{ route('facebook') }}">Facebook</a></li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <div class="site-content">
+                    @yield('content')
+                </div>
+
+        </div> <!-- end site-wrapper -->
         
     </body>
 </html>

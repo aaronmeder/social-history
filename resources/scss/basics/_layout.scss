@@ -1,0 +1,27 @@
+body {
+    background-color: #f7fafc;
+}
+
+.site-wrapper {
+    padding-bottom: 4rem;
+    width: 75ch;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.site-grid {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+section {
+    border: 1px #cbd5e0 solid;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: white;
+
+    > header {
+        margin-bottom: 1rem;
+    }
+}
