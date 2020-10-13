@@ -16,8 +16,9 @@ class FacebookController extends Controller
         $comments = $this->get_comments()['comments'];
         $comments_contacts = $this->get_comments()['contacts'];
         $friends = $this->get_friends();
+        $general = $this->get_peneral_info();
 
-        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts', 'friends') );
+        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts', 'friends', 'general') );
     }
 
     private function get_likes() 
@@ -115,6 +116,18 @@ class FacebookController extends Controller
         krsort($optimised_friends);
 
         return $optimised_friends;
+    }
+
+    private function get_peneral_info() 
+    {
+        // profile
+        $json_file = storage_path('app/social-archives/facebook/profile_information/profile_information.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $profile = collect($json_data)['profile'];
+
+        $general['registration_date'] = $profile['registration_timestamp'] ? date('d.m.Y', $profile['registration_timestamp']) : null;
+
+        return $general;
     }
 
 }
