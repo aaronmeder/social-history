@@ -30,12 +30,17 @@
                 Total Friends: {{ count($friends) }}
             </header>
 
-            @foreach( array_slice($friends,0,9) as $friend )
-                <article>
-                    <strong>{{ utf8_decode($friend['name']) }}</strong> 
-                    {{ $friend['date'] }}
-                </article>
-            @endforeach
+            <article>
+                <h2>First Friends</h2>
+                <ul>
+                @foreach( array_slice($friends,0,9) as $friend )
+                    <li>
+                        <strong>{{ utf8_decode($friend['name']) }}</strong> 
+                        {{ $friend['date'] }}
+                    </li>
+                @endforeach
+                <ul>
+            </article>
 
         </section>
 
