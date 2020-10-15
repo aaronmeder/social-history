@@ -8,8 +8,13 @@
         <section>
         
             <header>
-                <h1>Profile</h1>
-                Registration date: {{ $general['registration_date'] }}
+                <h1>My Profile</h1>
+                <ul>
+                    <li>Registration date: {{ $general['registration_date'] }}</li>
+                    <li>Followers: {{ count($connections['followers']) }}</li>
+                    <li>Following: {{ count($connections['following']) }}</li>
+                    <li>Close Friends: {{ count($connections['close_friends']) }}</li>
+                </ul>
             </header>
 
         </section>
@@ -18,11 +23,11 @@
 
             <header>
                 <h1>Comments</h1>
-                Total Comments: {{ count($comments) }}
+                Total Comments I made: {{ count($comments) }}
             </header>
 
             <article>
-                <h2>Top Ten commented on</h2>
+                <h2>I commented the most on posts by</h2>
                 <ul>
                     @foreach( array_slice($comments_contacts,0,10) as $contact => $comment_count )
                         <li><strong>{{ utf8_decode($contact) }}</strong> {{ $comment_count }}</li>
@@ -40,7 +45,7 @@
             </header>
 
             <article>
-                <h2>Top Ten liked posts of</h2>
+                <h2>The most posts I liked were by</h2>
                 <ul>
                     @foreach( array_slice($likes_contacts,0,9) as $name => $like_count )
                         <li><strong>{{ utf8_decode($name) }}</strong> {{ $like_count }}</li>

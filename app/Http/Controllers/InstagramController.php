@@ -15,8 +15,9 @@ class InstagramController extends Controller
         $comments = $this->get_comments()['comments'];
         $comments_contacts = $this->get_comments()['contacts'];
         $general = $this->get_general_info();
+        $connections = $this->get_connections();
 
-        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general') );
+        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections') );
     }
 
     private function get_likes() 
@@ -93,6 +94,15 @@ class InstagramController extends Controller
         $general['registration_date'] = $join_date;
 
         return $general;
+    }
+
+    private function get_connections() 
+    {
+        $json_file = storage_path('app/social-archives/instagram/connections.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $connections = collect($json_data);
+
+        return $connections;
     }
 
 }
