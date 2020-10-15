@@ -22,15 +22,33 @@
             </header>
 
             <article>
-                <h2>Top Ten Interactions</h2>
+                <h2>Top Ten commented on</h2>
                 <ul>
-                    @foreach( array_slice($comments_contacts,0,9) as $contact => $comment_count )
+                    @foreach( array_slice($comments_contacts,0,10) as $contact => $comment_count )
                         <li><strong>{{ utf8_decode($contact) }}</strong> {{ $comment_count }}</li>
                     @endforeach
                 </ul>
             </article>
 
         </section> 
+
+        <section>
+
+            <header>
+                <h1>Likes</h1>
+                Total Likes: {{ count($likes) }}
+            </header>
+
+            <article>
+                <h2>Top Ten liked posts of</h2>
+                <ul>
+                    @foreach( array_slice($likes_contacts,0,9) as $name => $like_count )
+                        <li><strong>{{ utf8_decode($name) }}</strong> {{ $like_count }}</li>
+                    @endforeach
+                </ul>
+            </article>
+
+        </section>
         
        {{--  <section>
         
@@ -60,25 +78,9 @@
                 <ul>
             </article>
 
-        </section>
-
-        <section>
-
-            <header>
-                <h1>Likes</h1>
-                Total Likes: {{ count($likes) }}
-            </header>
-
-            <article>
-                <h2>Top Ten Interactions</h2>
-                <ul>
-                    @foreach( array_slice($likes_contacts,0,9) as $name => $like_count )
-                        <li><strong>{{ utf8_decode($name) }}</strong> {{ $like_count }}</li>
-                    @endforeach
-                </ul>
-            </article>
-
         </section> --}}
+
+        
 
         
 

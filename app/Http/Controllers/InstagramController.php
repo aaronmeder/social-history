@@ -11,33 +11,33 @@ class InstagramController extends Controller
 
         // get data
         $likes = $this->get_likes()['likes'];
+        $likes_contacts = $this->get_likes()['contacts'];
         $comments = $this->get_comments()['comments'];
         $comments_contacts = $this->get_comments()['contacts'];
         $general = $this->get_general_info();
 
-        return view( 'instagram', compact('likes', 'comments', 'comments_contacts', 'general') );
+        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general') );
     }
 
     private function get_likes() 
     {
-        $json_file = storage_path('app/social-archives/facebook/likes_and_reactions/posts_and_comments.json');
+        $json_file = storage_path('app/social-archives/instagram/likes.json');
         $json_data = json_decode( file_get_contents($json_file), true );
-        $likes = collect( $json_data['reactions'] );
+        $likes = collect( $json_data['media_likes'] );
 
         $optimised_likes = [];
         $contacts = [];
         foreach($likes as $like) {
 
-            $date = $like['timestamp'] ? date('d.m.Y', $like['timestamp']) : null;
-            $title = $like['title'] ?? null;
-            $type = $like['data'][0]['reaction']['reaction'];
+            $date_from_string = strtotime(explode("T",$like[0])[0]);
+            $date = $like[0] ? date('d.m.Y', $date_from_string) : null;
+            $contact = $like[1] ?? null;
             
             // extract the contact
-            $contact = str_replace("Aaron Meder likes ", "", $title);
-            $contact = explode("'", $contact)[0];
             $contacts[] = $contact;
 
-            $optimised_likes[] = compact('date', 'type', 'contact');
+            // save like data
+            $optimised_likes[] = compact('date', 'contact');
 
         }
 
