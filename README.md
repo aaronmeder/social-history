@@ -1,9 +1,8 @@
 # My Social History
 
-<p align="center"><figure><img src="Screenshot.png" height="400"><figcaption>Facebook stats page</figcaption></figure></p>
-
 >A quick look into your history on social media. Drop in the archives you've downloaded from Facebook and Instagram and see some stats about your time on the networks.
 
+<figure><img src="Screenshot.png" height="400"><figcaption>Facebook stats page</figcaption></figure>
 
 ## How to use
 
