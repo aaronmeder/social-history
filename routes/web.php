@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/facebook', 'FacebookController@index')->name('facebook');
+Route::get('/instagram', 'InstagramController@index')->name('instagram');

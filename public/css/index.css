@@ -448,8 +448,13 @@ section > header {
 }
 
 .site-header nav ul {
+  display: flex;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.site-header nav li:not(:last-child) {
+  margin-right: 1rem;
 }
 

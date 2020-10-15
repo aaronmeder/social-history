@@ -20,6 +20,7 @@
                     <nav>
                         <ul>
                             <li><a href="{{ route('facebook') }}">Facebook</a></li>
+                            <li><a href="{{ route('instagram') }}">Instagram</a></li>
                         </ul>
                     </nav>
                 </header>
