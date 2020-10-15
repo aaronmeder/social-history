@@ -2,17 +2,27 @@
     padding: 2rem 0;
 
     nav {
+        
         font-size: 1.4rem;
 
         ul {
             display: flex;
-            margin: 0;
+            justify-content: center;
             padding: 0;
             list-style: none;
         }
 
-        li:not(:last-child) {
-            margin-right: 1rem;
+        li {
+            display: inline;
+
+            &:first-child {
+                flex: 1;
+            }
+
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
         }
+
     }
 }

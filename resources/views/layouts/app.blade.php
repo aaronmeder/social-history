@@ -19,6 +19,7 @@
                 <header class="site-header">
                     <nav>
                         <ul>
+                            <li><a href="/" class="logo">My Social History</a></li>
                             <li><a href="{{ route('facebook') }}">Facebook</a></li>
                             <li><a href="{{ route('instagram') }}">Instagram</a></li>
                         </ul>

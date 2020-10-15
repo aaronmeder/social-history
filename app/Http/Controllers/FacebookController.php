@@ -16,17 +16,20 @@ class FacebookController extends Controller
         $comments = $this->get_comments()['comments'];
         $comments_contacts = $this->get_comments()['contacts'];
         $friends = $this->get_friends();
-        $general = $this->get_peneral_info();
+        $general = $this->get_general_info();
+        $page_likes = $this->get_page_likes();
 
-        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts', 'friends', 'general') );
+        return view( 'facebook', compact('posts', 'likes', 'likes_contacts', 'comments', 'comments_contacts', 'friends', 'general', 'page_likes' ) );
     }
 
     private function get_likes() 
     {
+        // get data
         $json_file = storage_path('app/social-archives/facebook/likes_and_reactions/posts_and_comments.json');
         $json_data = json_decode( file_get_contents($json_file), true );
         $likes = collect( $json_data['reactions'] );
 
+        // optimize data
         $optimised_likes = [];
         $contacts = [];
         foreach($likes as $like) {
@@ -44,7 +47,7 @@ class FacebookController extends Controller
 
         }
 
-        // optimise data
+        // sort likes by contact
         $contacts_counts = array_count_values($contacts);
         arsort($contacts_counts);
 
@@ -71,10 +74,12 @@ class FacebookController extends Controller
 
     private function get_comments()
     {
+        // get data
         $json_file = storage_path('app/social-archives/facebook/comments/comments.json');
         $json_data = json_decode( file_get_contents($json_file), true );
         $comments = collect($json_data)['comments'];
 
+        // optimize data
         $optimised_comments = [];
         foreach($comments as $comment) {
 
@@ -90,7 +95,7 @@ class FacebookController extends Controller
 
         }
 
-        // optimise data
+        // sort by contact encounter
         $contacts_counts = array_count_values($contacts);
         arsort($contacts_counts);
 
@@ -102,10 +107,12 @@ class FacebookController extends Controller
 
     private function get_friends()
     {
+        // get data
         $json_file = storage_path('app/social-archives/facebook/friends/friends.json');
         $json_data = json_decode( file_get_contents($json_file), true );
         $friends = collect($json_data)['friends'];
 
+        // optimize data
         $optimised_friends = [];
         foreach($friends as $friend) {
             $date = $friend['timestamp'] ? date('d.m.Y', $friend['timestamp']) : null;
@@ -113,21 +120,36 @@ class FacebookController extends Controller
             $optimised_friends[] = compact('date', 'name');
         }
 
+        // reverse sort by connection date
         krsort($optimised_friends);
 
         return $optimised_friends;
     }
 
-    private function get_peneral_info() 
+    private function get_general_info() 
     {
-        // profile
+        // get data
         $json_file = storage_path('app/social-archives/facebook/profile_information/profile_information.json');
         $json_data = json_decode( file_get_contents($json_file), true );
         $profile = collect($json_data)['profile'];
 
+        // optimize data for display
         $general['registration_date'] = $profile['registration_timestamp'] ? date('d.m.Y', $profile['registration_timestamp']) : null;
 
         return $general;
+    }
+
+    private function get_page_likes() 
+    {
+        // get data
+        $json_file = storage_path('app/social-archives/facebook/likes_and_reactions/pages.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $page_likes = collect($json_data)['page_likes'];
+
+        // reverse sort by date
+        krsort($page_likes);
+
+        return $page_likes;
     }
 
 }
