@@ -17,8 +17,9 @@ class InstagramController extends Controller
         $general = $this->get_general_info();
         $connections = $this->get_connections()['connections'];
         $oldest_following = $this->get_connections()['oldest_following'];
+        $media = $this->get_media();
 
-        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following') );
+        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following', 'media') );
     }
 
     private function get_likes() 
@@ -110,6 +111,16 @@ class InstagramController extends Controller
             'connections' => $connections,
             'oldest_following' => $oldest_following
         ];
+    }
+
+    private function get_media() 
+    {
+        // get data
+        $json_file = storage_path('app/social-archives/instagram/media.json');
+        $json_data = json_decode( file_get_contents($json_file), true );
+        $media = collect($json_data);
+
+        return $media;
     }
 
 }

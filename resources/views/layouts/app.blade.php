@@ -8,6 +8,7 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Ubuntu+Mono&display=swap" rel="stylesheet"> 
 
         <title>{{ config('app.name') }}</title>
 

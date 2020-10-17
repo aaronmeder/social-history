@@ -1,29 +1,30 @@
-$mono-font: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+//@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Ubuntu+Mono&display=swap');
+/*$native-mono-font: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;*/
+$mono-font: 'IBM Plex Mono', monospace;
 
 body {
     font-family: $mono-font;
     font-size: 1rem;
-    font-weight: 200;
     line-height: 1.3 * 1rem;
+    font-weight: normal;
 }
 
 h1, h2, h3, h4 {
     margin-top: 0;
     font-family: $mono-font;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 h1 {
-    margin-bottom: 0.5 * 1.4rem;
-    font-size: 1.4rem;
-    line-height: 1.3 * 1.4rem;
-    font-style: italic;
+    margin-bottom: 0.5 * 1.3rem;
+    font-size: 1.3rem;
+    line-height: 1.3 * 1.3rem;
 }
 
 h2 {
-    margin-bottom: 0.5 * 1.2rem;
-    font-size: 1.2rem;
-    line-height: 1.3 * 1.2rem;
+    margin-bottom: 0.5 * 1.1rem;
+    font-size: 1.1rem;
+    line-height: 1.3 * 1.1rem;
 }
 
 blockquote {

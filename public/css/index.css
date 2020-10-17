@@ -384,11 +384,13 @@ ul {
   padding-left: 1rem;
 }
 
+/*$native-mono-font: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;*/
+
 body {
-  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 1rem;
-  font-weight: 200;
   line-height: 1.3rem;
+  font-weight: normal;
 }
 
 h1,
@@ -396,21 +398,20 @@ h2,
 h3,
 h4 {
   margin-top: 0;
-  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-  font-weight: bold;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
 }
 
 h1 {
-  margin-bottom: 0.7rem;
-  font-size: 1.4rem;
-  line-height: 1.82rem;
-  font-style: italic;
+  margin-bottom: 0.65rem;
+  font-size: 1.3rem;
+  line-height: 1.69rem;
 }
 
 h2 {
-  margin-bottom: 0.6rem;
-  font-size: 1.2rem;
-  line-height: 1.56rem;
+  margin-bottom: 0.55rem;
+  font-size: 1.1rem;
+  line-height: 1.43rem;
 }
 
 blockquote {
@@ -502,5 +503,9 @@ section > header {
 
 .site-header nav li:not(:last-child) {
   margin-right: 1rem;
+}
+
+.site-header nav a {
+  font-weight: 600;
 }
 
