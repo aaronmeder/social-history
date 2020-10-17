@@ -55,39 +55,24 @@
 
         </section>
         
-       {{--  <section>
-        
-            <header>
-                <h1>Posts</h1>
-                Total Posts: {{ count($posts) }}
-            </header>
-
-        </section>
-
         <section>
         
             <header>
-                <h1>Friends</h1>
-                Total Friends: {{ count($friends) }}
+                <h1>Connections</h1>
             </header>
 
             <article>
-                <h2>First Friends</h2>
+                <h2>I first followed</h2>
                 <ul>
-                @foreach( array_slice($friends,0,9) as $friend )
+                @foreach( array_slice($oldest_following,0,9) as $name => $date )
                     <li>
-                        <strong>{{ utf8_decode($friend['name']) }}</strong> 
-                        {{ $friend['date'] }}
+                        <strong>{{ $name }}</strong> 
                     </li>
                 @endforeach
                 <ul>
             </article>
-
-        </section> --}}
-
         
-
-        
+        </section>
 
     </div> <!-- end site-content -->
 
