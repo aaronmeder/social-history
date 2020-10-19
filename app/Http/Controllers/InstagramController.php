@@ -17,9 +17,10 @@ class InstagramController extends Controller
         $general = $this->get_general_info();
         $connections = $this->get_connections()['connections'];
         $oldest_following = $this->get_connections()['oldest_following'];
-        $media = $this->get_media();
+        $media = $this->get_media()['media'];
+        $tags = $this->get_media()['tags_count'];
 
-        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following', 'media') );
+        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following', 'media', 'tags') );
     }
 
     private function get_likes() 
@@ -120,7 +121,37 @@ class InstagramController extends Controller
         $json_data = json_decode( file_get_contents($json_file), true );
         $media = collect($json_data);
 
-        return $media;
+        // get tags and mentions in photo captions
+        $tags = [];
+        $mentions = [];
+        foreach( $media['photos'] as $photo ) {
+            
+            // get tags
+            preg_match('/(#\w+)/', $photo['caption'], $found_tags);
+            if($found_tags) {
+                array_push($tags, $found_tags[0]);
+            }
+
+            // get mentions
+            preg_match('/(@\w+)/', $photo['caption'], $found_mentions);
+            if($found_mentions) {
+                array_push($mentions, $found_mentions[0]);
+            }
+
+        }
+
+        // optimize data
+        $tags_count = array_count_values($tags);
+        arsort($tags_count);
+
+        $mentions_count = array_count_values($mentions);
+        arsort($mentions_count);
+
+        return [
+            'media' => $media,
+            'tags_count' => $tags_count,
+            'mentions_count' => $mentions_count
+        ];
     }
 
 }
