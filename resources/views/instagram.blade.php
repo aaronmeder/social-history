@@ -81,14 +81,11 @@
             </header>
 
             <article>
-                <h2>I first followed</h2>
                 <ul>
-                @foreach( array_slice($oldest_following,0,9) as $name => $date )
-                    <li>
-                        {{ $name }}
-                    </li>
-                @endforeach
-                <ul>   
+                    <li><strong>Photos uploaded: </strong> {{ count($media['photos']) }}</li>
+                    <li><strong>Stories created: </strong> {{ count($media['stories']) }}</li>
+                    <li><strong>Videos uploaded: </strong> {{ count($media['videos']) }}</li>
+                </ul>   
             </article>
         
         </section>
