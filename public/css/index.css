@@ -478,6 +478,10 @@ section > header {
   margin-bottom: 1rem;
 }
 
+section a {
+  color: black;
+}
+
 .site-header {
   padding: 2rem 0;
 }
@@ -507,5 +511,32 @@ section > header {
 
 .site-header nav a {
   font-weight: 600;
+}
+
+.instas__filters {
+  margin-bottom: 1rem;
+}
+
+.instas__filters a {
+  color: black;
+}
+
+.instas__media {
+  margin: 0 -5px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.instas__single {
+  margin: 5px;
+  width: 200px;
+  height: 200px;
+}
+
+.instas__single img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 

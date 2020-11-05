@@ -19,8 +19,18 @@ class InstagramController extends Controller
         $oldest_following = $this->get_connections()['oldest_following'];
         $media = $this->get_media()['media'];
         $tags = $this->get_media()['tags_count'];
+        $tags_nav = $this->get_media()['tags_nav'];
 
-        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following', 'media', 'tags') );
+        return view( 'instagram', compact('likes', 'likes_contacts', 'comments', 'comments_contacts', 'general', 'connections', 'oldest_following', 'media', 'tags', 'tags_nav') );
+    }
+
+    public function list_media()
+    {
+        $media = $this->get_media()['media'];
+        $tags_nav = $this->get_media()['tags_nav'];
+
+
+        return view( 'instagram_media', compact('media', 'tags_nav') );
     }
 
     private function get_likes() 
@@ -119,17 +129,22 @@ class InstagramController extends Controller
         // get data
         $json_file = storage_path('app/social-archives/instagram/media.json');
         $json_data = json_decode( file_get_contents($json_file), true );
-        $media = collect($json_data);
+        //$media = collect($json_data);
+        $media = $json_data;
 
         // get tags and mentions in photo captions
         $tags = [];
+        $tags_nav = [];
         $mentions = [];
-        foreach( $media['photos'] as $photo ) {
-            
+        foreach( $media['photos'] as $key => $photo ) {
+
+            $this_photo_tags = "";
+
             // get tags
             preg_match('/(#\w+)/', $photo['caption'], $found_tags);
             if($found_tags) {
                 array_push($tags, $found_tags[0]);
+                $this_photo_tags .= $found_tags[0] . " ";
             }
 
             // get mentions
@@ -138,6 +153,18 @@ class InstagramController extends Controller
                 array_push($mentions, $found_mentions[0]);
             }
 
+            // save found tags for image class
+            $media['photos'][$key]['class'] = str_replace( '#', 'tag-', $this_photo_tags );
+            
+            // save found tags for tag nav
+            $separated_tags = explode( " ", $this_photo_tags );
+            foreach( $separated_tags as $tag ) {
+                $tag_text = str_replace( '#', '', $tag );
+                if( !array_key_exists( $tag_text , $tags_nav ) ) {
+                    $tags_nav[$tag_text] = 'tag-' . $tag_text;
+                }
+            }
+            
         }
 
         // optimize data
@@ -150,6 +177,7 @@ class InstagramController extends Controller
         return [
             'media' => $media,
             'tags_count' => $tags_count,
+            'tags_nav' => $tags_nav,
             'mentions_count' => $mentions_count
         ];
     }
