@@ -164,6 +164,10 @@ class InstagramController extends Controller
                     $tags_nav[$tag_text] = 'tag-' . $tag_text;
                 }
             }
+
+            // save title 
+            $location_text = array_key_exists('location', $photo) ? " @ " . $photo['location'] : ""; 
+            $media['photos'][$key]['title'] = $photo['caption'] . "\n--\nTaken: " . $photo['taken_at'] . $location_text; 
             
         }
 

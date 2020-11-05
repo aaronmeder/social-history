@@ -23,6 +23,7 @@
                             <img
                                 src="/media/instagram/{{ $single['path'] }}"
                                 loading="lazy"
+                                title="{{ $single['title'] }}"
                             />
                         </li>
                     @endforeach
